@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load django_bootstrap5 %}
 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -46,14 +47,15 @@
             <a class="nav-link" href="#">{% translate 'Labels' %}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">{% translate 'Tasks' %}</a>
+            <a class="nav-link" href="{% url 'tasks:list' %}">{% translate 'Tasks' %}</a>
           </li>
           {% endif %}
         </ul>
       </div>
     </nav>
+    {% bootstrap_messages %}
+
     <main>
-        {% bootstrap_messages %}
         {% block content %}
         {% endblock %}
     </main>
