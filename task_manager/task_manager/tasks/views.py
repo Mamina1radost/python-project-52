@@ -7,11 +7,16 @@ from django.utils.translation import gettext
 from django.contrib.messages.views import SuccessMessageMixin
 from task_manager.tasks.models import Tasks
 from task_manager.tasks.mixins import CheckUser, NoPermissionHandleMixin
+from task_manager.tasks.filter import TaskFilter
+from django_filters.views import FilterView
 
-class TasksListView(AuthRequired, ListView):
+
+class TasksListView(AuthRequired, FilterView):
     success_url = reverse_lazy('tasks:list')
     model = Tasks
     template_name = 'tasks/list.html'
+    filterset_class = TaskFilter
+    
 
 class TasksCreate(AuthRequired, SuccessMessageMixin, CreateView):
     model = Tasks

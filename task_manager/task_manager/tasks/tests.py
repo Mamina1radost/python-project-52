@@ -4,7 +4,8 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from task_manager.tasks.models import Tasks
 from task_manager.statuses.models import Statuses
-
+from task_manager.tasks.filter import TaskFilter
+from task_manager.labels.models import Labels
 
 class TasksTest(TestCase):
     @classmethod
@@ -27,7 +28,7 @@ class TasksTest(TestCase):
         cls.executor.save()
 
         cls.status = Statuses.objects.create(name="oka")
-
+        cls.status2 = Statuses.objects.create(name='Slava')
     def setUp(self):
         """Логиним пользователя перед каждым тестом"""
         login_successful = self.client.login(username="volkovor777228", password="1234")
@@ -100,3 +101,99 @@ class TasksTest(TestCase):
 
         with self.assertRaises(ObjectDoesNotExist):
             Tasks.objects.get(name=data_task["name"])
+
+    def test_filter_tasks_by_status(self):
+        """Проверка фильтрации задач по статусу"""
+        task1 = Tasks.objects.create(
+            name="Task 1",
+            description="Description 1",
+            status=self.status,
+            creator=self.user,
+            executor=self.executor,
+        )
+        task2 = Tasks.objects.create(
+            name="Task 2",
+            description="Description 2",
+            status=self.status,
+            creator=self.user,
+            executor=None,
+        )
+        task3 = Tasks.objects.create(
+            name="Task 3",
+            description="Description 3",
+            status=self.status2,
+            creator=self.user,
+            executor=None,
+        )
+
+        response = self.client.get(reverse("tasks:list"), {'status': self.status.pk})
+        self.assertContains(response, task1.name)
+        self.assertContains(response, task2.name)
+        self.assertNotContains(response, task3.name)
+
+
+    def test_filter_tasks_by_executor(self):
+        """Проверка фильтрации задач по исполнителю"""
+        task1 = Tasks.objects.create(
+            name="Task 1",
+            description="Description 1",
+            status=self.status,
+            creator=self.user,
+            executor=self.executor,
+        )
+        task2 = Tasks.objects.create(
+            name="Task 2",
+            description="Description 2",
+            status=self.status,
+            creator=self.user,
+            executor=self.user,
+        )
+
+        response = self.client.get(reverse("tasks:list"), {'executor': self.executor.pk})
+        self.assertContains(response, task1.name)
+        self.assertNotContains(response, task2.name)
+
+    def test_filter_tasks_by_label(self):
+        """Проверка фильтрации задач по метке"""
+        label = Labels.objects.create(name="Important")
+        task1 = Tasks.objects.create(
+            name="Task 1",
+            description="Description 1",
+            status=self.status,
+            creator=self.user,
+            executor=self.executor,
+        )
+        task1.label.add(label)
+
+        task2 = Tasks.objects.create(
+            name="Task 2",
+            description="Description 2",
+            status=self.status,
+            creator=self.user,
+            executor=self.user,
+        )
+
+        response = self.client.get(reverse("tasks:list"), {'task_label': label.pk})
+        self.assertContains(response, task1.name)
+        self.assertNotContains(response, task2.name)
+
+    def test_list_tasks_view(self):
+        """Проверка отображения списка задач"""
+        task1 = Tasks.objects.create(
+            name="Task 1",
+            description="Description 1",
+            status=self.status,
+            creator=self.user,
+            executor=self.executor,
+        )
+        task2 = Tasks.objects.create(
+            name="Task 2",
+            description="Description 2",
+            status=self.status,
+            creator=self.user,
+            executor=None,
+        )
+
+        response = self.client.get(reverse("tasks:list"))
+        self.assertContains(response, task1.name)
+        self.assertContains(response, task2.name)
