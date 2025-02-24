@@ -11,3 +11,6 @@ migr:
 
 tests:
 	uv run python3 manage.py test
+
+sync:
+	uv sync
