@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext
 from django.contrib.messages.views import SuccessMessageMixin
 from task_manager.tasks.models import Tasks
+from task_manager.tasks.mixins import CheckUser, NoPermissionHandleMixin
 
 class TasksListView(AuthRequired, ListView):
     success_url = reverse_lazy('tasks:list')
@@ -16,7 +17,7 @@ class TasksCreate(AuthRequired, SuccessMessageMixin, CreateView):
     model = Tasks
     form_class = TasksForm   
     template_name = 'tasks/create.html'
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('tasks:list')
     success_message = gettext('Task create successfull')
     
     def form_valid(self, form):
@@ -31,7 +32,7 @@ class TasksUpdate(AuthRequired, SuccessMessageMixin, UpdateView):
     success_message = gettext('Task update successfull')
 
 
-class TasksDelete(AuthRequired, SuccessMessageMixin, DeleteView):
+class TasksDelete(AuthRequired, NoPermissionHandleMixin, CheckUser, SuccessMessageMixin, DeleteView):
     model = Tasks
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy('tasks:list')

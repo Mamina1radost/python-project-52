@@ -6,6 +6,7 @@ from task_manager.mixins import AuthRequired
 from django.urls import reverse_lazy
 from django.utils.translation import gettext
 from django.contrib.messages.views import SuccessMessageMixin
+from task_manager.users.mixins import CheckUser, NoPermissionHandleMixin
 
 # Create your views here.
 
@@ -23,7 +24,7 @@ class UsersCreate(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('login')
     success_message = gettext('User register successfull')
 
-class UsersUpdate(AuthRequired, SuccessMessageMixin, UpdateView):
+class UsersUpdate(AuthRequired, NoPermissionHandleMixin, CheckUser, SuccessMessageMixin, UpdateView):
     model = get_user_model()
     form_class = Update
     template_name = 'users/update.html'
@@ -31,7 +32,7 @@ class UsersUpdate(AuthRequired, SuccessMessageMixin, UpdateView):
     success_message = gettext('User update successfull')
 
 
-class UsersDelete(AuthRequired, SuccessMessageMixin, DeleteView):
+class UsersDelete(AuthRequired, NoPermissionHandleMixin, CheckUser, SuccessMessageMixin, DeleteView):
     model = get_user_model()
     template_name = 'users/delete.html'
     success_url = '/users/'
