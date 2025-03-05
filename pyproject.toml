@@ -9,6 +9,7 @@ dependencies = [
     "django-bootstrap5>=24.3",
     "django-filter>=25.1",
     "psycopg2-binary>=2.9.10",
+    "python-dotenv>=1.0.1",
 ]
 
 [build-system]
