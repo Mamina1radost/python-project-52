@@ -5,7 +5,7 @@ translate:
 	uv run django-admin makemessages --locale ru
 	uv run python manage.py compilemessages
 
-migr:
+migrate:
 	uv run python3 manage.py makemigrations
 	uv run python3 manage.py migrate
 
