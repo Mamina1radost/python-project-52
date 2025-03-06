@@ -58,8 +58,8 @@ msgstr "Метка"
 
 #: task_manager/tasks/mixins.py:16
 msgid "task can be delete or update only user which created"
-msgstr ""
-"Задача может быть обновлена или удалена только пользователем которым создана"
+msgstr "Задача может быть обновлена или удалена только пользователем которым создана"
+
 
 #: task_manager/tasks/models.py:11
 msgid "name"
