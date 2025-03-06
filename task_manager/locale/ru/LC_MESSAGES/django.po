@@ -97,7 +97,7 @@ msgstr "Выйти"
 
 #: task_manager/templates/base.html:36
 msgid "Login"
-msgstr "Войти"
+msgstr "Вход"
 
 #: task_manager/templates/base.html:39
 msgid "Registration"
