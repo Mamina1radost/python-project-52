@@ -50,9 +50,9 @@
     </div>
     <div class="row p-1">
       <div class="col">
-        <a href="/tasks/14/update/">{% translate 'Update' %}</a>
+        <a href="{%url 'tasks:update' task.id%}">{% translate 'Update' %}</a>
         <br>
-        <a href="/tasks/14/delete/">{% translate 'Delete' %}</a>
+        <a href="{%url 'tasks:delete' task.id%}">{% translate 'Delete' %}</a>
       </div>
     </div>
   </div>
