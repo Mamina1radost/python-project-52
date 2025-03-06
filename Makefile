@@ -19,7 +19,7 @@ build:
 	./build.sh
 
 render-start:
-	export PATH=$PATH:$HOME/.local/bin && gunicorn task_manager.wsgi --bind 0.0.0.0:${PORT}
+	gunicorn task_manager.wsgi 
 	
 collectstatic:
 	uv run python manage.py collectstatic --noinput
