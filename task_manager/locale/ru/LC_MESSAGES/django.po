@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-20 13:13+0300\n"
+"POT-Creation-Date: 2025-03-20 13:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,6 +59,10 @@ msgstr "Статус успешно изменен"
 msgid "Status delete"
 msgstr "Статус успешно удален"
 
+#: task_manager/statuses/views.py:43
+msgid "status to delete unreal"
+msgstr "Невозможно удалить статус, потому что он используется"
+
 #: task_manager/tasks/filter.py:18
 msgid "Only own tasks"
 msgstr "Только свои задачи"
@@ -69,8 +73,7 @@ msgstr "Метка"
 
 #: task_manager/tasks/mixins.py:16
 msgid "task can be delete or update only user which created"
-msgstr ""
-"Задачу может удалить только ее автор"
+msgstr "Задачу может удалить только ее автор"
 
 #: task_manager/tasks/models.py:11
 msgid "name"
