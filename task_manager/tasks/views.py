@@ -43,7 +43,8 @@ class TasksUpdate(AuthRequired, SuccessMessageMixin, UpdateView):
 
 
 class TasksDelete(
-    AuthRequired, NoPermissionHandleMixin, CheckUser, SuccessMessageMixin, DeleteView
+    AuthRequired, NoPermissionHandleMixin, CheckUser,
+    SuccessMessageMixin, DeleteView
 ):
     model = Tasks
     template_name = "tasks/delete.html"

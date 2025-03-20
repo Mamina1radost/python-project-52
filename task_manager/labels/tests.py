@@ -35,7 +35,8 @@ class LabelTest(TestCase):
         self.assertEqual(label.name, data_label["name"])
 
         data_label_update = {"name": "Enjoys"}
-        self.client.post(reverse("labels:update", args=[label.id]), data_label_update)
+        self.client.post(reverse("labels:update", args=[label.id]),
+                         data_label_update)
         label_new = Labels.objects.get(name=data_label_update["name"])
         self.assertEqual(label_new.name, data_label_update["name"])
 

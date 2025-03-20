@@ -29,7 +29,8 @@ class UsersCreate(SuccessMessageMixin, CreateView):
 
 
 class UsersUpdate(
-    AuthRequired, NoPermissionHandleMixin, CheckUser, SuccessMessageMixin, UpdateView
+    AuthRequired, NoPermissionHandleMixin,
+    CheckUser, SuccessMessageMixin, UpdateView
 ):
     model = get_user_model()
     form_class = Update
@@ -39,7 +40,8 @@ class UsersUpdate(
 
 
 class UsersDelete(
-    AuthRequired, NoPermissionHandleMixin, CheckUser, SuccessMessageMixin, DeleteView
+    AuthRequired, NoPermissionHandleMixin,
+    CheckUser, SuccessMessageMixin, DeleteView
 ):
     model = get_user_model()
     template_name = "users/delete.html"

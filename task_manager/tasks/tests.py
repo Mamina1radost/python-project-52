@@ -32,7 +32,8 @@ class TasksTest(TestCase):
 
     def setUp(self):
         """Логиним пользователя перед каждым тестом"""
-        login_successful = self.client.login(username="volkovor777228", password="1234")
+        login_successful = self.client.login(username="volkovor777228",
+                                             password="1234")
         self.assertTrue(login_successful, "Не удалось залогинить пользователя!")
 
     def test_create_task(self):
@@ -80,7 +81,8 @@ class TasksTest(TestCase):
 
         updated_task = Tasks.objects.get(pk=task.pk)
         self.assertEqual(updated_task.name, data_task_update["name"])
-        self.assertEqual(updated_task.description, data_task_update["description"])
+        self.assertEqual(updated_task.description,
+                         data_task_update["description"])
 
     def test_delete_task(self):
         """Проверка удаления задачи"""
@@ -126,7 +128,8 @@ class TasksTest(TestCase):
             executor=None,
         )
 
-        response = self.client.get(reverse("tasks:list"), {"status": self.status.pk})
+        response = self.client.get(reverse("tasks:list"),
+                                   {"status": self.status.pk})
         self.assertContains(response, task1.name)
         self.assertContains(response, task2.name)
         self.assertNotContains(response, task3.name)
@@ -174,7 +177,8 @@ class TasksTest(TestCase):
             executor=self.user,
         )
 
-        response = self.client.get(reverse("tasks:list"), {"task_label": label.pk})
+        response = self.client.get(reverse("tasks:list"),
+                                   {"task_label": label.pk})
         self.assertContains(response, task1.name)
         self.assertNotContains(response, task2.name)
 
